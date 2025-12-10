@@ -1,8 +1,5 @@
-# linear_lists/08_parentheses.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
+from exercise_01 import ArrayStack
+
 
 def parentheses_balanced(s):
     mapping = {')':'(', ']':'[', '}':'{'}

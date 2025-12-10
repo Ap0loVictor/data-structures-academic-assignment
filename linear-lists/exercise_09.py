@@ -1,10 +1,6 @@
-# linear_lists/09_prefix_convert.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
+from exercise_01 import ArrayStack
 
-# assume tokens separated by space OR single-character tokens
+
 def tokenize(expr):
     return expr.split()
 
@@ -15,10 +11,8 @@ def prefix_to_infix_postfix(prefix_expr):
     tokens = tokenize(prefix_expr)
     st_infix = ArrayStack()
     st_post = ArrayStack()
-    # scan from right to left
     for tok in reversed(tokens):
         if is_operator(tok):
-            # pop two operands from each stack
             a_in = st_infix.pop()
             b_in = st_infix.pop()
             new_infix = f"({a_in} {tok} {b_in})"
@@ -38,15 +32,15 @@ def prefix_to_infix_postfix(prefix_expr):
 
 def main():
     examples = [
-        "+ A * B C",      # A + (B * C)
-        "- * A B / C D",  # (A*B) - (C/D)
-        "+ 3 * 4 5"       # 3 + (4*5)
+        "+ A * B C",      
+        "- * A B / C D",  
+        "+ 3 * 4 5"      
     ]
     for ex in examples:
         infix, postfix = prefix_to_infix_postfix(ex)
-        print(f"Prefix: {ex}")
-        print(" Infix :", infix)
-        print(" Postfix:", postfix)
+        print(f"Prefixo: {ex}")
+        print(" Infixo :", infix)
+        print(" Pós-fixo:", postfix)
         print()
 
 if __name__ == "__main__":

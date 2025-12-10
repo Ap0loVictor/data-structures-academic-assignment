@@ -1,13 +1,7 @@
-# linear_lists/10_calculator.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
+from exercise_01 import ArrayStack
 
-# shunting-yard to convert infix -> postfix (tokens separated by spaces or single-digit)
 prec = {'+':1, '-':1, '*':2, '/':2, '^':3}
 def tokenize(expr):
-    # simple tokenizer: split by spaces if present, else split chars (handles multi-digit if spaced)
     if ' ' in expr:
         return expr.split()
     tokens = []
@@ -33,13 +27,13 @@ def infix_to_postfix(tokens):
         elif tok == '(':
             ops.push(tok)
         elif tok == ')':
-            while not ops.is_empty() and ops.peek() != '(':
+            while not ops.is_empty() and ops.top() != '(':
                 output.append(ops.pop())
-            ops.pop()  # pop '('
-        else:  # operator
-            while (not ops.is_empty() and ops.peek() != '(' and
-                   ((prec.get(ops.peek(),0) > prec.get(tok,0)) or
-                    (prec.get(ops.peek(),0) == prec.get(tok,0) and tok != '^'))):
+            ops.pop()  
+        else:  
+            while (not ops.is_empty() and ops.top() != '(' and
+                   ((prec.get(ops.top(),0) > prec.get(tok,0)) or
+                    (prec.get(ops.top(),0) == prec.get(tok,0) and tok != '^'))):
                 output.append(ops.pop())
             ops.push(tok)
     while not ops.is_empty():
@@ -56,7 +50,7 @@ def eval_postfix(postfix_tokens):
             if tok == '+': st.push(a + b)
             elif tok == '-': st.push(a - b)
             elif tok == '*': st.push(a * b)
-            elif tok == '/': st.push(a // b)  # integer division
+            elif tok == '/': st.push(a // b)  
             elif tok == '^': st.push(a ** b)
             else:
                 raise ValueError("unknown op " + tok)
@@ -76,7 +70,9 @@ def main():
     ]
     for ex in expressions:
         value, postfix = calculate(ex)
-        print(f"{ex} => postfix: {' '.join(postfix)} => value: {value}")
+        print(f"{ex} = {value}")
+        # print(f"{ex} => postfix: {' '.join(postfix)} => value: {value}")
+        # Deixei pra poder dar pra ver o postfix se quiser (pós-fixo)
 
 if __name__ == "__main__":
     main()

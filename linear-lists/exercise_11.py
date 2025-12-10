@@ -1,9 +1,5 @@
-# linear_lists/11_palindrome.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
-ArrayQueue = ns['ArrayQueue']
+from exercise_01 import ArrayStack
+from exercise_01 import ArrayQueue
 
 def is_palindrome(s):
     st = ArrayStack()
@@ -19,7 +15,8 @@ def is_palindrome(s):
     return True
 
 def main():
-    tests = ["A man, a plan, a canal: Panama", "racecar", "hello", "No lemon, no melon"]
+    # tests = ["A man, a plan, a canal: Panama", "racecar", "hello", "No lemon, no melon"] # I searched for palindromes
+    tests = ["", "A", "aa", "ab", "aba", "abc", "Arara", "aibofobia"]
     for t in tests:
         print(f"{t!r} -> {is_palindrome(t)}")
 

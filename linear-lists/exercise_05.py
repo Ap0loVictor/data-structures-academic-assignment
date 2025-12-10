@@ -1,20 +1,15 @@
-# linear_lists/05_invert_list.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
+from exercise_01 import ArrayStack
 
 def invert_list(lst):
     s = ArrayStack()
     for item in lst:
         s.push(item)
-    res = []
-    while not s.is_empty():
-        res.append(s.pop())
-    return res
+    for i in range(len(lst)):
+        lst[i] = s.pop()
+    return lst
 
 def main():
-    original = [1, 2, 3, 4, 5]
+    original = [1, 2, 3, 7, 5]
     print("Original:", original)
     inverted = invert_list(original)
     print("Inverted:", inverted)

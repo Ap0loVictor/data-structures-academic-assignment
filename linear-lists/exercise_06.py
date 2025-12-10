@@ -1,18 +1,15 @@
-# linear_lists/06_queue_ops.py
-ns = {}
-with open('01_array_structures.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayQueue = ns['ArrayQueue']
+from exercise_01 import ArrayQueue
 
 def print_state(step, q):
     print(f"{step}: {q}")
 
-def main():
+def main(): # Eu fiz uma porma de printar, mas pode ser simplificado, inclusive no 07 eu simplifiquei, mas fica a gosto, 
+    # como eu disse pode mudar já que está rodando de qualquer forma.
     q = ArrayQueue()
     ops = [
         ("enqueue", 5), ("enqueue", 3), ("dequeue", None),
         ("enqueue", 2), ("enqueue", 8), ("dequeue", None), ("dequeue", None),
-        ("enqueue", 9), ("enqueue", 1), ("dequeue", None), ("dequeue", None),
+        ("enqueue", 9), ("enqueue", 1),  ("dequeue", None),
         ("enqueue", 7), ("enqueue", 6), ("dequeue", None), ("dequeue", None),
         ("enqueue", 4), ("dequeue", None), ("dequeue", None)
     ]

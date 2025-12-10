@@ -1,8 +1,13 @@
 class ArrayStack:
-    """Simple dynamic array-backed stack."""
     def __init__(self):
         self._data = []
 
+    def __repr__(self):
+        return f"ArrayStack({self._data})"
+
+    def __len__(self):
+        return len(self._data)
+    
     def push(self, value):
         self._data.append(value)
 
@@ -11,28 +16,21 @@ class ArrayStack:
             raise IndexError("pop from empty stack")
         return self._data.pop()
 
-    def peek(self):
+    def top(self):
         return None if not self._data else self._data[-1]
 
     def is_empty(self):
         return len(self._data) == 0
 
-    def size(self):
-        return len(self._data)
-
-    def clear(self):
-        self._data.clear()
-
-    def __repr__(self):
-        return f"ArrayStack({self._data})"
-
-
 class ArrayQueue:
-    """Circular-array queue with dynamic resize."""
     def __init__(self, capacity=8):
         self._data = [None] * capacity
         self._head = 0
         self._size = 0
+
+    def __repr__(self):
+        items = [self._data[(self._head + i) % self._capacity()] for i in range(self._size)]
+        return f"ArrayQueue({items})"
 
     def _capacity(self):
         return len(self._data)
@@ -71,17 +69,16 @@ class ArrayQueue:
     def size(self):
         return self._size
 
-    def __repr__(self):
-        items = [self._data[(self._head + i) % self._capacity()] for i in range(self._size)]
-        return f"ArrayQueue({items})"
-
-
 class ArrayDeque:
     """Double-ended queue (deque) implemented with circular buffer."""
     def __init__(self, capacity=8):
         self._data = [None] * capacity
         self._head = 0
         self._size = 0
+
+    def __repr__(self):
+        items = [self._data[(self._head + i) % self._capacity()] for i in range(self._size)]
+        return f"ArrayDeque({items})"
 
     def _capacity(self):
         return len(self._data)
@@ -139,7 +136,3 @@ class ArrayDeque:
 
     def size(self):
         return self._size
-
-    def __repr__(self):
-        items = [self._data[(self._head + i) % self._capacity()] for i in range(self._size)]
-        return f"ArrayDeque({items})"

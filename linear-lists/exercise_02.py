@@ -1,17 +1,11 @@
-from exercise_01 import atividade_01
-# linear_lists/02_stack_ops.py
-# Execute this in the same folder that contains 01_array_structures.py
-
-# load classes from 01_array_structures.py dynamically
-ns = {}
-with open('exercise_01.py', 'r') as f:
-    exec(f.read(), ns)
-ArrayStack = ns['ArrayStack']
+from exercise_01 import ArrayStack
 
 def print_state(step, s):
     print(f"{step}: {s}")
 
-def main():
+# Here (main) is the place where we test stack operations. 
+# Fell free to modify it! I made one of these for each exercise. 
+def main(): 
     s = ArrayStack()
     ops = [
         ("push", 5), ("push", 3), ("pop", None),
