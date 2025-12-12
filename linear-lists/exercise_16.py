@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from exercise_12 import Node
 
 def count_circular(head):
     if head is None:
@@ -16,18 +13,15 @@ def count_circular(head):
 def build_circular(vals):
     if not vals:
         return None
-    head = Node(vals[0])
-    tail = head
+    head = Node(vals[0]); tail = head
     for v in vals[1:]:
-        n = Node(v)
-        tail.next = n
-        tail = n
+        n = Node(v); tail.next = n; tail = n
     tail.next = head
     return head
 
 def main():
     c = build_circular([10,20,30])
-    print("circular count:", count_circular(c))  # 3
+    print("circular count:", count_circular(c))
     print("empty circular:", count_circular(None))
 
 if __name__ == "__main__":

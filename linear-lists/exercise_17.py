@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from exercise_12 import Node
 
 def reverse_recursive(head):
     if head is None or head.next is None:
@@ -12,20 +9,17 @@ def reverse_recursive(head):
     return new_head
 
 def build(vals):
-    h = None; t = None
+    head=None; tail=None
     for v in vals:
-        n = Node(v)
-        if h is None:
-            h = t = n
-        else:
-            t.next = n; t = n
-    return h
+        n=Node(v)
+        if head is None: head=tail=n
+        else: tail.next=n; tail=n
+    return head
 
 def to_list(head):
-    a = []
-    cur = head
+    a=[]; cur=head
     while cur:
-        a.append(cur.data); cur = cur.next
+        a.append(cur.data); cur=cur.next
     return a
 
 def main():

@@ -1,22 +1,20 @@
-class SNode:
+class Node:
     def __init__(self, data):
         self.data = data
+        self.next = None
+
+class DNode:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
         self.next = None
 
 class LinkedStack:
     def __init__(self):
         self._top = None
 
-    def __repr__(self):
-        vals = []
-        cur = self._top
-        while cur:
-            vals.append(cur.data)
-            cur = cur.next
-        return "LinkedStack(" + repr(vals) + ")"
-
     def push(self, x):
-        n = SNode(x)
+        n = Node(x)
         n.next = self._top
         self._top = n
 
@@ -28,28 +26,19 @@ class LinkedStack:
         return v
 
     def top(self):
-        if self._top is None:
-            return None
-        return self._top.data
+        return None if self._top is None else self._top.data
 
     def is_empty(self):
         return self._top is None
+
 
 class LinkedQueue:
     def __init__(self):
         self._head = None
         self._tail = None
 
-    def __repr__(self):
-        vals = []
-        cur = self._head
-        while cur:
-            vals.append(cur.data)
-            cur = cur.next
-        return "LinkedQueue(" + repr(vals) + ")"
-
     def enqueue(self, x):
-        n = SNode(x)
+        n = Node(x)
         if self._tail is None:
             self._head = self._tail = n
         else:
@@ -71,6 +60,7 @@ class LinkedQueue:
     def is_empty(self):
         return self._head is None
 
+
 class CircularQueue:
     def __init__(self, capacity=8):
         if capacity < 1:
@@ -79,59 +69,34 @@ class CircularQueue:
         self._front = 0
         self._size = 0
 
-    def __repr__(self):
-        vals = [self._data[(self._front + i) % self.capacity()] for i in range(self._size)]
-        return "CircularQueue(" + repr(vals) + ")"
-
-    def capacity(self):
-        return len(self._data)
-
-    def is_empty(self):
-        return self._size == 0
-
-    def is_full(self):
-        return self._size == self.capacity()
-
     def enqueue(self, x):
-        if self.is_full():
+        if self._size == len(self._data):
             raise OverflowError("queue is full")
-        avail = (self._front + self._size) % self.capacity()
+        avail = (self._front + self._size) % len(self._data)
         self._data[avail] = x
         self._size += 1
 
     def dequeue(self):
-        if self.is_empty():
+        if self._size == 0:
             raise IndexError("dequeue from empty queue")
         v = self._data[self._front]
         self._data[self._front] = None
-        self._front = (self._front + 1) % self.capacity()
+        self._front = (self._front + 1) % len(self._data)
         self._size -= 1
         return v
 
     def first(self):
-        return None if self.is_empty() else self._data[self._front]
+        return None if self._size == 0 else self._data[self._front]
 
-    
+    def is_empty(self):
+        return self._size == 0
 
-class DNode:
-    def __init__(self, data):
-        self.data = data
-        self.prev = None
-        self.next = None
 
 class LinkedDeque:
     def __init__(self):
         self._head = None
         self._tail = None
 
-    def __repr__(self):
-        vals = []
-        cur = self._head
-        while cur:
-            vals.append(cur.data)
-            cur = cur.next
-        return "LinkedDeque(" + repr(vals) + ")"
-    
     def add_first(self, x):
         n = DNode(x)
         n.next = self._head
@@ -180,4 +145,3 @@ class LinkedDeque:
 
     def is_empty(self):
         return self._head is None
-

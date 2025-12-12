@@ -1,10 +1,6 @@
-class DNode:
-    def __init__(self, data):
-        self.data = data
-        self.prev = None
-        self.next = None
+from exercise_12 import DNode
 
-class DoublyLinked:
+class Doubly:
     def __init__(self):
         self.head = None
         self.tail = None
@@ -14,15 +10,12 @@ class DoublyLinked:
         if self.tail is None:
             self.head = self.tail = n
         else:
-            self.tail.next = n
-            n.prev = self.tail
-            self.tail = n
+            self.tail.next = n; n.prev = self.tail; self.tail = n
 
     def to_list(self):
-        a = []
-        cur = self.head
+        a=[]; cur=self.head
         while cur:
-            a.append(cur.data); cur = cur.next
+            a.append(cur.data); cur=cur.next
         return a
 
     def remove_node(self, node):
@@ -47,14 +40,16 @@ class DoublyLinked:
                 seen.add(cur.data)
             cur = nxt
 
-# test
+def build(vals):
+    dll = Doubly()
+    for v in vals: dll.append(v)
+    return dll
+
 def main():
-    dll = DoublyLinked()
-    for v in [1,2,3,2,4,1,5]:
-        dll.append(v)
+    dll = build([1,2,3,2,4,1,5])
     print("before:", dll.to_list())
     dll.remove_duplicates()
-    print("after: ", dll.to_list())  
+    print("after: ", dll.to_list())
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from exercise_12 import Node
 
 def split_positive_negative(head):
     pos_head = pos_tail = None
@@ -23,29 +20,25 @@ def split_positive_negative(head):
         cur = nxt
     return pos_head, neg_head
 
-
 def build(vals):
-    h = None; t = None
+    head=None; tail=None
     for v in vals:
-        n = Node(v)
-        if not h:
-            h = t = n
-        else:
-            t.next = n; t = n
-    return h
+        n=Node(v)
+        if head is None: head=tail=n
+        else: tail.next=n; tail=n
+    return head
 
 def to_list(h):
-    a = []
-    cur = h
+    a=[]; cur=h
     while cur:
-        a.append(cur.data); cur = cur.next
+        a.append(cur.data); cur=cur.next
     return a
 
 def main():
     h = build([3, -1, 4, -2, 0])
     pos, neg = split_positive_negative(h)
-    print("positives:", to_list(pos)) 
-    print("negatives:", to_list(neg))  
+    print("positives:", to_list(pos))
+    print("negatives:", to_list(neg))
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from exercise_12 import Node
 
 def concatenate(L, M):
     if L is None:
@@ -12,35 +9,28 @@ def concatenate(L, M):
     cur.next = M
     return L
 
-# test
 def build(vals):
-    h = None
-    t = None
+    head = None; tail = None
     for v in vals:
         n = Node(v)
-        if h is None:
-            h = t = n
+        if head is None:
+            head = tail = n
         else:
-            t.next = n
-            t = n
-    return h
+            tail.next = n; tail = n
+    return head
 
-def list_to_py(head):
-    a = []
-    cur = head
+def to_list(head):
+    a=[]; cur=head
     while cur:
-        a.append(cur.data)
-        cur = cur.next
+        a.append(cur.data); cur = cur.next
     return a
 
 def main():
     L = build([1,2,3])
     M = build([4,5])
     R = concatenate(L, M)
-    print("concatenated:", list_to_py(R))  
-    L2 = None
-    R2 = concatenate(L2, M)
-    print("concat empty L:", list_to_py(R2))
+    print("concatenated:", to_list(R))
+    # print("concat empty L:", to_list(concatenate(None, M))) # If you want to test with empty L
 
 if __name__ == "__main__":
     main()
