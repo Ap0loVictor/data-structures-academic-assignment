@@ -1,4 +1,3 @@
-# exercise_13.py
 from exercise_12 import Node
 
 def penultimate(head):
