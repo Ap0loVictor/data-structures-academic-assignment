@@ -1,6 +1,5 @@
 from exercise_01 import LinkedBinaryTree, Node
 
-
 def _collect_paths_from_node(node, path, out):
     
     if node is None:

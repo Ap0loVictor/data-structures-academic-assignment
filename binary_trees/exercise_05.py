@@ -1,6 +1,5 @@
 from exercise_01 import LinkedBinaryTree, Node
 
-
 def _check_sum_node(node):
     if node is None:
         return True, 0

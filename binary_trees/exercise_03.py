@@ -1,4 +1,3 @@
-# exercise_23.py
 from exercise_01 import LinkedBinaryTree
 
 if __name__ == "__main__":

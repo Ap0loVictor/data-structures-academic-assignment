@@ -1,6 +1,5 @@
 from exercise_01 import LinkedBinaryTree, Node
 
-
 def nodes_identical(n1, n2) -> bool:
     if n1 is None and n2 is None:
         return True
