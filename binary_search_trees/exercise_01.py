@@ -1,6 +1,4 @@
-import sys
-import os
-
+import sys, os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
@@ -17,78 +15,67 @@ class TreeMap:
     def __init__(self):
         self._tree = LinkedBinaryTree()
 
-    def _subtree_search(self, node, key):
-        if node is None:
-            return None
-        if key == node.element.key:
+    def _search(self, node, key):
+        if node is None or node.element.key == key:
             return node
         if key < node.element.key:
-            if node.left is None:
-                return node
-            return self._subtree_search(node.left, key)
+            return self._search(node.left, key) if node.left else node
         else:
-            if node.right is None:
-                return node
-            return self._subtree_search(node.right, key)
+            return self._search(node.right, key) if node.right else node
 
     def _subtree_min(self, node):
         cur = node
-        while cur.left is not None:
+        while cur.left:
             cur = cur.left
         return cur
 
     def get(self, key):
         if self._tree.root is None:
             return None
-        node = self._subtree_search(self._tree.root, key)
-        if node.element.key == key:
-            return node.element.value
-        return None
+        node = self._search(self._tree.root, key)
+        return node.element.value if node and node.element.key == key else None
 
     def put(self, key, value):
         item = TreeMap._Item(key, value)
-
         if self._tree.root is None:
             self._tree.add_root(item)
             return
-
-        node = self._subtree_search(self._tree.root, key)
-
+        node = self._search(self._tree.root, key)
         if node.element.key == key:
             node.element.value = value
-        elif key < node.element.key:
-            self._tree.add_left(node, item)
         else:
-            self._tree.add_right(node, item)
+            if key < node.element.key:
+                self._tree.add_left(node, item)
+            else:
+                self._tree.add_right(node, item)
 
     def remove(self, key):
         if self._tree.root is None:
             return None
-
-        node = self._subtree_search(self._tree.root, key)
-        if node.element.key != key:
+        node = self._search(self._tree.root, key)
+        if node is None or node.element.key != key:
             return None
 
-        removed_value = node.element.value
+        removed = node.element.value
 
-        if node.left is not None and node.right is not None:
+        if node.left and node.right:
             succ = self._subtree_min(node.right)
             node.element = succ.element
             node = succ
 
-        child = node.left if node.left is not None else node.right
+        child = node.left if node.left else node.right
         parent = node.parent
 
         if parent is None:
             self._tree.root = child
-            if child is not None:
+            if child:
                 child.parent = None
         else:
             if parent.left is node:
                 parent.left = child
             else:
                 parent.right = child
-            if child is not None:
+            if child:
                 child.parent = parent
 
-        return removed_value
+        return removed
